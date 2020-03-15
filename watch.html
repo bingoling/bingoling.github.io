@@ -14,6 +14,16 @@
         var season_num = url.searchParams.get("season");
         document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>';
         
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("box-container").innerHTML =
+            this.responseText;
+            }
+        };
+        xhttp.open("GET", "j/s"+season_num+".json", true);
+        xhttp.send();
+        
     } else {
         document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_home.css" /><br/><h2 id="friends_season_text">F.R.I.E.N.D.S</h2><p id="which_season_text">Which season you wanna watch?</p><br/><div id="box-container"></div>';
         var s = "";
