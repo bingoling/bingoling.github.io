@@ -1,6 +1,20 @@
 <script src="header.js"></script>
 
-<div id="watch-box"></div>
+<div id="watch-box"><br/><br/><br/><br/>
+    <div id="box-container">
+        <div class="sub-box">
+            <div class="sub-box-one">
+                <img src="https://m.media-amazon.com/images/M/MV5BMjAzMTEwMDUwM15BMl5BanBnXkFtZTgwNDIyODM0MDE@._V1_UX224_CR0,0,224,126_AL_.jpg">
+                <div id="grad-box"></div><h3>• S01E01 •</h3>
+            </div>
+            <div class="sub-box-two">
+                <h3>The One where it all started</h3>
+                <p>Ross finds out his ex-wife is pregnant. Rachel returns her engagement ring to Barry. Monica becomes stressed when her and Ross's parents come to visit.</p>
+                <b>Airdate: 21st August, 1997</b>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     const nav_watch = document.getElementById("nav-watch");
@@ -12,13 +26,20 @@
     if (url.indexOf('?' + field + '=') != -1) {
         var url = new URL(url);
         var season_num = url.searchParams.get("season");
-        document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>';
+        document.write('<link rel="stylesheet" href="css/watch_epi.css" />');
+        //document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>';
         
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("box-container").innerHTML =
-            this.responseText;
+                var jf = JSON.parse(this.responseText);
+                var about = jf["about"];
+                var timeline = '';
+                for (var i in jf["timeline"]) {
+
+                    timeline += jf["timeline"][i]["title"];
+                }
+                //document.getElementById("box-container").innerHTML = timeline;
             }
         };
         xhttp.open("GET", "j/s"+season_num+".json", true);
