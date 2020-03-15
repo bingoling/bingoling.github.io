@@ -1,35 +1,4 @@
 <script src="header.js"></script>
-<style>
-    #watch-box { padding: 20px; text-align: center; }
-    #watch-box #friends_season_text { color: var(--main-color); text-align: left; }
-    #watch-box #which_season_text { color: var(--sec-color); text-align: left; }
-    #watch-box .season-box {
-        text-align: left;
-        position: relative;
-        display: inline-block;
-        border-radius: 7px;
-        margin: 10px;
-        transition: transform .2s;
-    }
-    #watch-box .season-box:hover, #watch-box .season-box:focus { transform: scale(1.2); }
-    #watch-box .season-box h2 { color: var(--sec-bg); margin-bottom: 5px; }
-    #watch-box .season-box .season-img { position: absolute; bottom: 7px; }
-    #watch-box .season-box .si-right { right: 5px; width: 32px; }
-    #watch-box .season-box .si-left { right: 42px; }
-    @media only screen and (min-width: 651px) {
-        #watch-box { max-width: 70vw; margin: 70px auto; }
-        #watch-box .season-box { padding: 20px 100px 20px 10px; max-width: 110px; }
-    }
-    @media only screen and (max-width: 650px) {
-        #watch-box { margin-bottom: 70px; }
-        #watch-box .season-box { padding: 10px 0 40px 10px; width: 35vw; }
-        #watch-box .season-box a p { font-size: 3.2vw; }
-    }
-    @media only screen and (max-width: 385px) {
-        #watch-box .season-box { padding: 7px 0 40px 7px; }
-        #watch-box .season-box a h2 { font-size: 6vw; } 
-    }
-</style>
 
 <div id="watch-box"></div>
 
@@ -43,9 +12,10 @@
     if (url.indexOf('?' + field + '=') != -1) {
         var url = new URL(url);
         var season_num = url.searchParams.get("season");
-        alert(season_num);
+        document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>';
+        
     } else {
-        document.getElementById("watch-box").innerHTML = '<br/><h2 id="friends_season_text">F.R.I.E.N.D.S</h2><p id="which_season_text">Which season you wanna watch?</p><br/><div id="box-container"></div>';
+        document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_home.css" /><br/><h2 id="friends_season_text">F.R.I.E.N.D.S</h2><p id="which_season_text">Which season you wanna watch?</p><br/><div id="box-container"></div>';
         var s = "";
         var s_line = ["Hey, How you<br/>doing?", "When were you<br/>under me?", "WE WERE ON<br/>A BREAK!", "15 Yemen Rd,<br/>Yemen", "They don't know<br/>that we know", "Ah, salmon skin<br/>roll", "It's like a cow's<br/>opinion. It's moo", "You've been<br/>BAMBOOZLED!", "www.haha-not<br/>so-much.com!", "Was that place<br/>THE SUN?"];
         var s_color = ['--primary-', '--success-', '--warning-', '--primary-', '--danger-', '--light-', '--warning-', '--success-', '--danger-', '--light-'];

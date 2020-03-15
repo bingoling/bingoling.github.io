@@ -2,7 +2,7 @@ const starter = '<!DOCTYPE html><html><head>';
 const meta0 = '<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">';
 const title = '<title>We were on a break!</title>';
 const favicon = '<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"><link rel="icon" href="img/favicon.ico" type="image/x-icon">';
-const style_tag = '<link rel="stylesheet" href="main.css">';
+const style_tag = '<link rel="stylesheet" href="css/main.css">';
 const head_body = '</head><body>';
 const nav_start = '<nav class="navbar">';
 const nav_start_home = '<div class="nav-item" id="nav-home"><a href="index.html">';
