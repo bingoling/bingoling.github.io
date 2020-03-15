@@ -1,1 +1,39 @@
-asd
+#watch-box {
+    padding: 7px;
+    margin: 10px auto;
+}
+#watch-box #box-container .sub-box {
+    background-color: var(--sec-bg);
+    color: var(--sec-color);
+    border-radius: 10px;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90vw;
+    position: relative;
+    overflow: auto;
+}
+#watch-box #box-container .sub-box .sub-box-one, #watch-box #box-container .sub-box .sub-box-two {
+    float: left;
+    position: relative;
+}
+#watch-box #box-container .sub-box .sub-box-one { width: 30vw }
+#watch-box #box-container .sub-box .sub-box-two { width: 60vw; }
+#watch-box #box-container .sub-box img {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    height: inherit;
+}
+#watch-box #box-container .sub-box .sub-box-one #grad-box {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(transparent, var(--sec-bg));
+}
+#watch-box #box-container .sub-box .sub-box-one h3 {
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+}
