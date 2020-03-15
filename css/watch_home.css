@@ -1,0 +1,30 @@
+#watch-box { text-align: center; }
+#watch-box #friends_season_text { color: var(--main-color); }
+#watch-box #which_season_text { color: var(--sec-color); }
+#watch-box #friends_season_text, #watch-box #which_season_text { text-align: left; margin-left: 20px; }
+#watch-box .season-box {
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    border-radius: 7px;
+    margin: 10px;
+    transition: transform .2s;
+}
+#watch-box .season-box:hover, #watch-box .season-box:focus { transform: scale(1.2); }
+#watch-box .season-box h2 { color: var(--sec-bg); margin-bottom: 5px; }
+#watch-box .season-box .season-img { position: absolute; bottom: 7px; }
+#watch-box .season-box .si-right { right: 5px; width: 32px; }
+#watch-box .season-box .si-left { right: 42px; }
+@media only screen and (min-width: 651px) {
+    #watch-box { max-width: 70vw; margin: 40px auto; }
+    #watch-box .season-box { padding: 20px 100px 20px 10px; max-width: 110px; }
+}
+@media only screen and (max-width: 650px) {
+    #watch-box { margin-bottom: 70px; }
+    #watch-box .season-box { padding: 10px 0 40px 10px; width: 42vw; margin: 4px; }
+    #watch-box .season-box a p { font-size: 3.5vw; }
+}
+@media only screen and (max-width: 385px) {
+    #watch-box .season-box { padding: 7px 0 40px 7px; }
+    #watch-box .season-box a h2 { font-size: 6vw; } 
+}
