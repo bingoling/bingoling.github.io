@@ -1,9 +1,9 @@
 *{ padding: 0; margin: 0; }
 :root {
     --main-bg: #000000;
-    --main-color: #e6e6e6;
+    --main-color: #cccccc;
     --sec-bg: #1a1a1a;
-    --sec-color: #cccccc;
+    --sec-color: #e6e6e6;
     --primary-color: #1da1f2;
     --success-color:#28a745;
     --warning-color:#ffc107;
