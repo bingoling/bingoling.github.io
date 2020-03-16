@@ -6,7 +6,7 @@
     text-align: left;
     position: relative;
     display: inline-block;
-    border-radius: 7px;
+    border-radius: 8px;
     margin: 10px;
     transition: transform .2s;
 }

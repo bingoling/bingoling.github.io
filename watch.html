@@ -1,19 +1,22 @@
 <script src="header.js"></script>
 
-<div id="watch-box"><br/><br/><br/><br/></div>
+<div id="watch-box"></div>
  
 <script>
     const nav_watch = document.getElementById("nav-watch");
     nav_watch.firstElementChild.style.color = "var(--primary-color)";
-
     var field = 'season';
     var url = window.location.href;
-    if (url.indexOf('?' + field + '=') != -1) {
-        
+    if (url.indexOf('?' + field + '=') != -1) { watch_epi_func(url); }
+    else { watch_home_func(); }
+
+    function watch_epi_func(url) {
         var url = new URL(url);
         var season_num = url.searchParams.get("season");
-        document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>';
-        
+        var grid_icon = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>';
+        var card_icon = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>';
+        var big_small_btn = '<button class="big-small-btn big"><span id="large">' + card_icon + '<span> CARDS</span></span><span id="small">' + grid_icon + '<span> GRID</span></span></button>';
+        document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_epi.css" /><br/><h2 id="friends_season_text">Season ' + season_num + '</h2><br/><div id="box-container"></div>' + big_small_btn;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -30,7 +33,7 @@
                     watch_vid_link = jf["timeline"][i]["vid"];
                     watch_des = jf["timeline"][i]["des"];
 
-                    timeline += '<div class="frame">' +
+                    timeline += '<div class="frame frame-big">' +
                                     '<div class="img-frame">' +
                                         '<div class="grad-box-top"></div>' +
                                         '<h3 class="epi-num">' + watch_epi_num + '</h3>' +
@@ -67,22 +70,12 @@
         };
         xhttp.open("GET", "j/s"+season_num+".json", true);
         xhttp.send();
-
-        var des_btn = document.getElementsByClassName("des-toggle");
-        for (var i = 0; i < des_btn.length; i++) {
-        des_btn[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-        }
         
-    } 
-    else {
+        frame_big_small_func();
+        des_toggle_func();
+    }
+
+    function watch_home_func() {
         document.getElementById("watch-box").innerHTML = '<link rel="stylesheet" href="css/watch_home.css" /><br/><h2 id="friends_season_text">F.R.I.E.N.D.S</h2><p id="which_season_text">Which season you wanna watch?</p><br/><div id="box-container"></div>';
         var s = "";
         var s_line = ["Hey, How you<br/>doing?", "When were you<br/>under me?", "WE WERE ON<br/>A BREAK!", "15 Yemen Rd,<br/>Yemen", "They don't know<br/>that we know", "Ah, salmon skin<br/>roll", "It's like a cow's<br/>opinion. It's moo", "You've been<br/>BAMBOOZLED!", "www.haha-not<br/>so-much.com!", "Was that place<br/>THE SUN?"];
@@ -92,9 +85,38 @@
         }
         document.getElementById("box-container").innerHTML = s;
     }
-    
+
+    function frame_big_small_func() {
+        setTimeout(function(){
+            var big_small_btn = document.getElementsByClassName("big-small-btn")[0];
+            var frames = document.getElementsByClassName("frame");
+            big_small_btn.addEventListener("click", function() {
+                big_small_btn.classList.toggle("big");
+                for (var i = 0; i < frames.length; i++) {
+                    frames[i].classList.toggle("frame-big");
+                }
+            });
+        }, 2000);
+    }
+
+    function des_toggle_func() {
+        setTimeout(function(){
+            var des_btn = document.getElementsByClassName("des-toggle");
+            for (var i = 0; i < des_btn.length; i++) {
+                des_btn[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        }, 2000);
+    }
+
 </script>
 
 </body>
-
 </html>
