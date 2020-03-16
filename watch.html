@@ -7,12 +7,18 @@
     nav_watch.firstElementChild.style.color = "var(--primary-color)";
     var field = 'season';
     var url = window.location.href;
-    if (url.indexOf('?' + field + '=') != -1) { watch_epi_func(url); }
-    else { watch_home_func(); }
+    if (url.indexOf('?' + field + '=') != -1) {
+        var jf;
+        var about = watch_epi_num = watch_img_src = watch_title = watch_rating = watch_airdate = watch_vid_link = watch_des = "";
+        var timeline = "";
+        watch_epi_func(url);
+    } else {
+        watch_home_func();
+    }
 
     function watch_epi_func(url) {
-        var url = new URL(url);
-        var season_num = url.searchParams.get("season");
+        var urli = new URL(url);
+        var season_num = urli.searchParams.get("season");
         var grid_icon = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>';
         var card_icon = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>';
         var big_small_btn = '<button class="big-small-btn big"><span id="large">' + card_icon + '<span> CARDS</span></span><span id="small">' + grid_icon + '<span> GRID</span></span></button>';
@@ -20,52 +26,9 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var jf = JSON.parse(this.responseText);
-                var about = jf["about"];
-                var timeline = '';
-                var watch_epi_num = watch_img_src = watch_title = watch_rating = watch_airdate = watch_vid_link = watch_des = "";
-                for (var i in jf["timeline"]) {
-                    watch_epi_num = i;
-                    watch_img_src = jf["timeline"][i]["img_src"];
-                    watch_title = jf["timeline"][i]["title"];
-                    watch_rating = jf["timeline"][i]["rating"];
-                    watch_airdate = jf["timeline"][i]["airdate"];
-                    watch_vid_link = jf["timeline"][i]["vid"];
-                    watch_des = jf["timeline"][i]["des"];
-
-                    timeline += '<div class="frame frame-big">' +
-                                    '<div class="img-frame">' +
-                                        '<div class="grad-box-top"></div>' +
-                                        '<h3 class="epi-num">' + watch_epi_num + '</h3>' +
-                                        '<img src="' + watch_img_src + '">' +
-                                        '<div class="grad-box-bottom"></div>' +
-                                        '<h3 class="title">' + watch_title + '</h3>' +
-                                    '</div>' +
-                                    '<div class="opt-frame">' +
-                                        '<div class="sub-opt-frame opt-info">' +
-                                            '<svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--warning-color)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
-                                            '<span> ' + watch_rating + '</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ' +
-                                            '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>' +
-                                            '<span> ' + watch_airdate + '</span>' +
-                                        '</div>' +
-                                        '<div class="sub-opt-frame opt-watch">' +
-                                            '<a class="watch-link" href="javascript://void(0);">' +
-                                                '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>' +
-                                                '<span> Watch Now</span>' +
-                                            '</a>' +
-                                        '</div>' +
-                                        '<div class="sub-opt-frame opt-des">' +
-                                            '<a class="des-toggle" href="javascript://void(0);">' +
-                                                '<span> Description</span>' +
-                                                '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
-                                            '</a>' +
-                                            '<p>' + watch_des + '</p>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>';
-
-                }
-                document.getElementById("box-container").innerHTML = timeline;
+                jf = JSON.parse(this.responseText);
+                about = jf["about"];
+                cards_func();
             }
         };
         xhttp.open("GET", "j/s"+season_num+".json", true);
@@ -86,12 +49,65 @@
         document.getElementById("box-container").innerHTML = s;
     }
 
+    function cards_func() {
+        for (var i in jf["timeline"]) {
+            watch_epi_num = i;
+            watch_img_src = jf["timeline"][i]["img_src"];
+            watch_title = jf["timeline"][i]["title"];
+            watch_rating = jf["timeline"][i]["rating"];
+            watch_airdate = jf["timeline"][i]["airdate"];
+            watch_vid_link = jf["timeline"][i]["vid"];
+            watch_des = jf["timeline"][i]["des"];
+
+            wen = watch_epi_num.split("E");
+            watch_epi_num = wen[0] + " • E" + wen[1];
+
+            timeline += '<div class="frame frame-big">' +
+                            '<a href="javascript://void(0);" class="img-watch-link">' +
+                                '<div class="img-frame">' +
+                                    '<div class="grad-box-num"></div>' +
+                                    '<h4 class="epi-num">' + watch_epi_num + '</h4>' +
+                                    '<img src="' + watch_img_src + '">' +
+                                    '<div class="grad-box-title"></div>' +
+                                    '<h3 class="title">' + watch_title + '</h3>' +
+                                '</div>' +
+                                '<h3 class="small-title">' + watch_title + '</h3>' +
+                            '</a>' +
+                            '<div class="opt-frame">' +
+                                '<div class="sub-opt-frame opt-info">' +
+                                    '<svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--warning-color)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
+                                    '<span> ' + watch_rating + '</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ' +
+                                    '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>' +
+                                    '<span> ' + watch_airdate + '</span>' +
+                                '</div>' +
+                                '<div class="sub-opt-frame opt-watch">' +
+                                    '<a class="watch-link" href="javascript://void(0);">' +
+                                        '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>' +
+                                        '<span> Watch Now</span>' +
+                                    '</a>' +
+                                '</div>' +
+                                '<div class="sub-opt-frame opt-des">' +
+                                    '<a class="des-toggle" href="javascript://void(0);">' +
+                                        '<span> Description</span>' +
+                                        '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+                                    '</a>' +
+                                    '<p><br/>' + watch_des + '</p>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+
+        }
+        document.getElementById("box-container").innerHTML = timeline;
+    }
+
     function frame_big_small_func() {
         setTimeout(function(){
             var big_small_btn = document.getElementsByClassName("big-small-btn")[0];
             var frames = document.getElementsByClassName("frame");
             big_small_btn.addEventListener("click", function() {
-                big_small_btn.classList.toggle("big");
+                var t = big_small_btn.classList.toggle("big");
+                //if(t) { cards_func(); }
+                //else { grid_func(); }
                 for (var i = 0; i < frames.length; i++) {
                     frames[i].classList.toggle("frame-big");
                 }
