@@ -1,22 +1,22 @@
 #watch-box { margin: 50px auto 100px; }
-#box-container { padding: 7px; text-align: center; }
+#watch-box #fifty-height {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 98vw;
+}
 
-#box-container #start-box { margin-left: 10px; margin-bottom: 20px; text-align: left; }
-#box-container #start-box a {
-    color: var(--success-color);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 50px;
+#season-img {
+    position: fixed;
+    height: 52vh;
+    width: auto;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, 0%);
 }
-#box-container #start-box a span { vertical-align: 10%; }
-#box-container #start-box a svg { vertical-align: bottom; }
-#box-container #start-box p {
-    display: none;
-    background-color: var(--sec-bg);
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-}
+
+#box-container { padding: 7px; text-align: center; position: relative; background-color: var(--main-bg); }
 
 .big-small-btn {
     background-color: var(--sec-color);
@@ -92,6 +92,7 @@
 #box-container .frame-big .opt-frame .opt-des p { display: none; text-align: left; }
 
 @media only screen and (min-width: 651px) {
+    #season-img { top: 5%; }
     .big-small-btn { bottom: 24px; right: 30px; }
     #box-container { max-width: 80vw; margin: 0 auto; text-align: center; }
     #box-container .frame .img-frame .grad-box-num { width: 30%; }
