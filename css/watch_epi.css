@@ -1,7 +1,7 @@
 #watch-box { margin: 50px auto 100px; }
 #watch-box #fifty-height {
     position: absolute;
-    top: 60%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, 0%);
     width: 98vw;
@@ -9,7 +9,7 @@
 
 #season-img {
     position: fixed;
-    height: 52vh;
+    height: 53vh;
     width: auto;
     left: 50%;
     top: 5%;
